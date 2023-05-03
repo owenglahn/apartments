@@ -1,0 +1,1 @@
+CHROMEDRIVER_PATH = "/opt/homebrew/bin/chromedriver"
