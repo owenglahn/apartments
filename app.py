@@ -20,17 +20,23 @@ def main():
     driver = webdriver.Chrome(CHROMEDRIVER_PATH, chrome_options=chrome_options)
     driver.get(EVAL_WEB_URL)
 
-    query_select = driver.find_element(by=By.ID, value="adresse")
+    query_select = driver.find_element(by=By.ID, value="lot")
     query_select.click()
 
-    continuer = None
-    try:
-        continuer = WebDriverWait(driver, 10).until(
-            EC.presence_of_all_elements_located((By.NAME, "Continuer"))
-        )
-    finally:
-        driver.quit()
+    continuer = driver.find_element(by=By.XPATH, value='//*[@id="type_recherche"]/button')
     continuer.click()
+
+    lotnum_entry = driver.find_element(by=By.ID, value="noLotRenove")
+    lotnum_entry.send_keys('12345')
+
+    captcha = driver.find_element(by=By.XPATH, value='/html/body/div[2]/div[3]/div[1]/div/div/span/div[1]')
+    captcha.click()
+
+    recherche = driver.find_element(by=By.XPATH, value='//*[@id="adressForm"]/div/div[2]/button')
+    recherche.click()
+
+    select = driver.find_element(by=By.XPATH, value='//*[@id="adressForm"]/div/div[2]/label')
+    print(select)
 
     driver.quit()
 
